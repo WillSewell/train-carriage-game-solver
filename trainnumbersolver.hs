@@ -6,6 +6,11 @@ import Data.List
 import Data.Maybe
 import Language.Haskell.Interpreter
 
+data TrainExpr = Int | OpNode TrainExpr Char TrainExpr
+
+instance Show TrainExpr where
+	show (OpNode lhs op rhs) = "(" ++ show lhs ++ ")" ++ [op] ++ "(" ++ show rhs ++ ")"
+
 --- WILL NOW HAVE TO ADD BRACKETS TO PERMUATIONS
 
 solutions :: [Int] -> [[Char]]
