@@ -11,6 +11,7 @@ data TrainExpr = Int | OpNode TrainExpr Char TrainExpr
 instance Show TrainExpr where
 	show (OpNode lhs op rhs) = "(" ++ show lhs ++ ")" ++ [op] ++ "(" ++ show rhs ++ ")"
 
+buildtree :: (Char, Char, Char) -> (Int, Int, Int, Int) -> TrainExpr
 buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4)
   = OpNode (OpNode n1 lhsOp n2) midOp (OpNode n3 rhsOp n4)
 
