@@ -11,6 +11,9 @@ data TrainExpr = Int | OpNode TrainExpr Char TrainExpr
 instance Show TrainExpr where
 	show (OpNode lhs op rhs) = "(" ++ show lhs ++ ")" ++ [op] ++ "(" ++ show rhs ++ ")"
 
+buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4)
+  = OpNode (OpNode n1 lhsOp n2) midOp (OpNode n3 rhsOp n4)
+
 --- WILL NOW HAVE TO ADD BRACKETS TO PERMUATIONS
 
 solutions :: [Int] -> [[Char]]
