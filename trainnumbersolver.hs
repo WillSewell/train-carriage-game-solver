@@ -23,7 +23,7 @@ apply Pow a b = Just $ a ^ b
 
 buildtree :: (Op, Op, Op) -> (Int, Int, Int, Int) -> TrainExpr
 buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4) =
-  OpNode (OpNode n1 lhsOp n2) midOp (OpNode n3 rhsOp n4)
+  OpNode (OpNode (Leaf n1) lhsOp (Leaf n2)) midOp (OpNode (Leaf n3) rhsOp (Leaf n4))
 
 solveTree :: TrainExpr -> Maybe Int
 solveTree (Leaf x) = x
