@@ -19,7 +19,7 @@ apply Add a b = Just $ a + b
 apply Sub a b = Just $ a - b
 apply Mul a b = Just $ a * b
 apply Div a b = if a `mod` b  == 0 then Just $ a `quot` b else Nothing
-apply Exp a b = Just $ a ^ b
+apply Exp a b = if b >= 0 then Just $ a ^ b else Nothing
 
 buildtree :: (Op, Op, Op) -> (Int, Int, Int, Int) -> TrainExpr
 buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4) =
