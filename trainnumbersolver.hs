@@ -11,11 +11,20 @@ data TrainExpr = Int | OpNode TrainExpr Char TrainExpr
 instance Show TrainExpr where
 	show (OpNode lhs op rhs) = "(" ++ show lhs ++ ")" ++ [op] ++ "(" ++ show rhs ++ ")"
 
+data Op = Add | Sub | Mul | Div | Pow deriving (Show)
+
+apply :: Op -> Int -> Int -> Maybe Int
+apply Add a b = Just a + b
+apply Sub a b = Just a - b
+apply Mul a b = Just a * b
+apply Div a b = if a `div` b then Just a `quot` b else Nothing
+apply Pow a b = Just a ^ b
+
 buildtree :: (Char, Char, Char) -> (Int, Int, Int, Int) -> TrainExpr
 buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4)
   = OpNode (OpNode n1 lhsOp n2) midOp (OpNode n3 rhsOp n4)
 
---- WILL NOW HAVE TO ADD BRACKETS TO PERMUATIONS
+--- Next need to build trees from the permutations generated below
 
 solutions :: [Int] -> [[Char]]
 solutions input = solutionsFromNumCombs (permutations input) (replicateM 3 ['+', '-', '*', '/'])
