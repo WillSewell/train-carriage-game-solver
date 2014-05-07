@@ -15,11 +15,11 @@ instance Show TrainExpr where
 data Op = Add | Sub | Mul | Div | Pow deriving (Show)
 
 apply :: Op -> Int -> Int -> Maybe Int
-apply Add a b = Just a + b
-apply Sub a b = Just a - b
-apply Mul a b = Just a * b
-apply Div a b = if a `div` b then Just a `quot` b else Nothing
-apply Pow a b = Just a ^ b
+apply Add a b = Just $ a + b
+apply Sub a b = Just $ a - b
+apply Mul a b = Just $ a * b
+apply Div a b = if a `mod` b  == 0 then Just $ a `quot` b else Nothing
+apply Pow a b = Just $ a ^ b
 
 buildtree :: (Op, Op, Op) -> (Int, Int, Int, Int) -> TrainExpr
 buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4) =
