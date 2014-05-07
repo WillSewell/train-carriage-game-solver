@@ -12,14 +12,14 @@ instance Show TrainExpr where
   show (Leaf x) = show x
   show (OpNode lhs op rhs) = "(" ++ show lhs ++ ")" ++ show op ++ "(" ++ show rhs ++ ")"
 
-data Op = Add | Sub | Mul | Div | Pow deriving (Show)
+data Op = Add | Sub | Mul | Div | Exp deriving (Show)
 
 apply :: Op -> Int -> Int -> Maybe Int
 apply Add a b = Just $ a + b
 apply Sub a b = Just $ a - b
 apply Mul a b = Just $ a * b
 apply Div a b = if a `mod` b  == 0 then Just $ a `quot` b else Nothing
-apply Pow a b = Just $ a ^ b
+apply Exp a b = Just $ a ^ b
 
 buildtree :: (Op, Op, Op) -> (Int, Int, Int, Int) -> TrainExpr
 buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4) =
@@ -37,7 +37,7 @@ solveTree (OpNode lhs op rhs) = case lhsSolution of
     rhsSolution = solveTree rhs
 
 solutions :: [Int] -> [TrainExpr]
-solutions input = solutionsFromNumCombs (permutations input) (replicateM 3 [Add, Sub, Mul, Div, Pow])
+solutions input = solutionsFromNumCombs (permutations input) (replicateM 3 [Add, Sub, Mul, Div, Exp])
 
 -- recursively solve all combs of nums, adding solutions to the answer
 solutionsFromNumCombs :: [[Int]] -> [[Op]] -> [TrainExpr]
