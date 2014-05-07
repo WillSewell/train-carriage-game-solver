@@ -1,10 +1,5 @@
-import Control.Monad
-import Control.Monad.CatchIO
-import Control.Monad.IO.Class
-import Data.Char
 import Data.List
-import Data.Maybe
-import Language.Haskell.Interpreter
+import Control.Monad
 
 data TrainExpr = Leaf Int | OpNode TrainExpr Op TrainExpr
 
