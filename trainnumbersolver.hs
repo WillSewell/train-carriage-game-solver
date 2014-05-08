@@ -38,11 +38,8 @@ solveTree (OpNode lhs op rhs) = case solveTree lhs of
 solutions :: [Int] -> [TrainExpr]
 solutions input = solutionsFromNumCombs (permutations input) (replicateM 3 [Add, Sub, Mul, Div, Exp])
 
--- recursively solve all combs of nums, adding solutions to the answer
 solutionsFromNumCombs :: [[Int]] -> [[Op]] -> [TrainExpr]
-solutionsFromNumCombs [] _ = []
-solutionsFromNumCombs (curNums:otherNums) ops =
-    (solutionsFromOpCombs curNums ops) ++ solutionsFromNumCombs otherNums ops
+solutionsFromNumCombs nums ops = map (solutionsFromOpCombs ops) nums
 
 solutionsFromOpCombs :: [Int] -> [[Op]] -> [TrainExpr]
 solutionsFromOpCombs _ [] = []
