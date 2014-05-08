@@ -7,7 +7,14 @@ instance Show TrainExpr where
   show (Leaf x) = show x
   show (OpNode lhs op rhs) = "(" ++ show lhs ++ ")" ++ show op ++ "(" ++ show rhs ++ ")"
 
-data Op = Add | Sub | Mul | Div | Exp deriving (Show)
+data Op = Add | Sub | Mul | Div | Exp
+
+instance Show Op where
+  show Add = "+"
+  show Sub = "-"
+  show Mul = "*"
+  show Div = "/"
+  show Exp = "^"
 
 apply :: Op -> Int -> Int -> Maybe Int
 apply Add a b = Just $ a + b
