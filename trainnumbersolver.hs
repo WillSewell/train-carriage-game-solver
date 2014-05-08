@@ -22,14 +22,11 @@ buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4) =
 
 solveTree :: TrainExpr -> Maybe Int
 solveTree (Leaf x) = Just x
-solveTree (OpNode lhs op rhs) = case lhsSolution of
-  Just x -> case rhsSolution of
+solveTree (OpNode lhs op rhs) = case solveTree lhs of
+  Just x -> case solveTree rhs of
     Just y -> apply op x y
     Nothing -> Nothing
   Nothing -> Nothing
-  where
-    lhsSolution = solveTree lhs
-    rhsSolution = solveTree rhs
 
 solutions :: [Int] -> [TrainExpr]
 solutions input = solutionsFromNumCombs (permutations input) (replicateM 3 [Add, Sub, Mul, Div, Exp])
