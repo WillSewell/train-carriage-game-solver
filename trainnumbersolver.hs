@@ -46,6 +46,12 @@ solutionsFromOpCombs nums (curOps:otherOps) = case solution of
   Just x -> if x == 10 then tree:otherSolutions else otherSolutions
   Nothing -> otherSolutions
   where
-    tree = buildtree ((curOps !! 0), (curOps !! 1), (curOps !! 2)) ((nums !! 0), (nums !! 1), (nums !! 2), (nums !! 3))
+    tree = buildtree (tuplify3 curOps) $ tuplify4 nums
     solution = solveTree tree
     otherSolutions = solutionsFromOpCombs nums otherOps
+
+tuplify3 :: [a] -> (a, a, a)
+tuplify3 [x1, x2, x3] = (x1, x2, x3)
+
+tuplify4 :: [a] -> (a, a, a, a)
+tuplify4 [x1,x2,x3,x4] = (x1, x2, x3, x4)
