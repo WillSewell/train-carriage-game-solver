@@ -43,12 +43,11 @@ solutionsFromNumCombs nums ops = concat $ map (solutionsFromOpCombs ops) nums
 
 solutionsFromOpCombs :: [[Op]] -> [Int] -> [TrainExpr]
 solutionsFromOpCombs [] _ = []
-solutionsFromOpCombs (curOps:otherOps) nums = case solution of
+solutionsFromOpCombs (curOps:otherOps) nums = case solveTree tree of
   Just x -> if x == 10 then tree:otherSolutions else otherSolutions
   Nothing -> otherSolutions
   where
     tree = buildtree (tuplify3 curOps) $ tuplify4 nums
-    solution = solveTree tree
     otherSolutions = solutionsFromOpCombs otherOps nums
 
 tuplify3 :: [a] -> (a, a, a)
