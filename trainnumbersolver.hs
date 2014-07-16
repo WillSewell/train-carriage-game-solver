@@ -1,3 +1,6 @@
+module Main where
+
+import Haste
 import Data.List
 import Control.Monad
 
@@ -55,3 +58,12 @@ tuplify3 [x1, x2, x3] = (x1, x2, x3)
 
 tuplify4 :: [a] -> (a, a, a, a)
 tuplify4 [x1,x2,x3,x4] = (x1, x2, x3, x4)
+
+main = do
+  Just submit <- elemById "submit"
+  submit `onEvent` OnClick $ \_ _ -> do
+    Just input <- elemById "input"
+    Just numsRaw <- (getValue input)
+    let nums = map (read . (:"")) numsRaw :: [Int] in do
+      Just output <- elemById "output"
+      setProp output "innerHTML" $ show $ solutions nums
