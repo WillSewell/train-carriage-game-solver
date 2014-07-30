@@ -32,11 +32,10 @@ buildtree (lhsOp, midOp, rhsOp) (n1, n2, n3, n4) =
 
 solveTree :: TrainExpr -> Maybe Int
 solveTree (Leaf x) = Just x
-solveTree (OpNode lhs op rhs) = case solveTree lhs of
-  Just x -> case solveTree rhs of
-    Just y -> apply op x y
-    Nothing -> Nothing
-  Nothing -> Nothing
+solveTree (OpNode lhs op rhs) = do
+  x <- solveTree lhs
+  y <- solveTree rhs
+  apply op x y
 
 solutions :: [Int] -> [TrainExpr]
 solutions input = solutionsFromNumCombs (permutations input) (replicateM 3 [Add, Sub, Mul, Div, Exp])
@@ -64,6 +63,6 @@ main = do
   submit `onEvent` OnClick $ \_ _ -> do
     Just input <- elemById "input"
     Just numsRaw <- (getValue input)
-    let nums = map (read . (:"")) numsRaw :: [Int] in do
+    let nums = map (read . (:" ")) numsRaw :: [Int] in do
       Just output <- elemById "output"
       setProp output "innerHTML" $ show $ solutions nums
