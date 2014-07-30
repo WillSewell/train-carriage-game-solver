@@ -41,7 +41,7 @@ solutions :: [Int] -> [TrainExpr]
 solutions input = solutionsFromNumCombs (permutations input) (replicateM 3 [Add, Sub, Mul, Div, Exp])
 
 solutionsFromNumCombs :: [[Int]] -> [[Op]] -> [TrainExpr]
-solutionsFromNumCombs nums ops = concat $ map (solutionsFromOpCombs ops) nums
+solutionsFromNumCombs nums ops = concatMap (solutionsFromOpCombs ops) nums
 
 solutionsFromOpCombs :: [[Op]] -> [Int] -> [TrainExpr]
 solutionsFromOpCombs [] _ = []
