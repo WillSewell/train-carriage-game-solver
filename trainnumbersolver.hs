@@ -8,6 +8,7 @@ data TrainExpr = Leaf Int | OpNode TrainExpr Op TrainExpr
 
 instance Show TrainExpr where
   show (Leaf x) = show x
+  show (OpNode (Leaf x) op (Leaf y)) = show x ++ show op ++ show y
   show (OpNode lhs op rhs) = "(" ++ show lhs ++ ")" ++ show op ++ "(" ++ show rhs ++ ")"
 
 data Op = Add | Sub | Mul | Div | Exp
