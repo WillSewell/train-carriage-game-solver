@@ -66,4 +66,7 @@ main = do
     Just numsRaw <- (getValue input)
     let nums = map (read . (:" ")) numsRaw :: [Int] in do
       Just output <- elemById "output"
-      setProp output "innerHTML" $ show $ solutions nums
+      setProp output "innerHTML" $ showSolutions $ solutions nums
+
+showSolutions :: [TrainExpr] -> String
+showSolutions = foldl (\acc x -> acc ++ "<p>" ++ show x ++ "</p>") ""
