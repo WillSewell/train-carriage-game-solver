@@ -45,13 +45,14 @@ solutionsFromNumCombs :: [[Int]] -> [[Op]] -> [TrainExpr]
 solutionsFromNumCombs nums ops = concatMap (solutionsFromOpCombs ops) nums
 
 solutionsFromOpCombs :: [[Op]] -> [Int] -> [TrainExpr]
-solutionsFromOpCombs [] _ = []
-solutionsFromOpCombs (curOps:otherOps) nums = case solveTree tree of
-  Just x -> if x == 10 then tree:otherSolutions else otherSolutions
-  Nothing -> otherSolutions
+solutionsFromOpCombs ops nums = foldl fn [] ops
   where
-    tree = buildtree (tuplify3 curOps) $ tuplify4 nums
-    otherSolutions = solutionsFromOpCombs otherOps nums
+    fn acc x =
+      let tree = buildtree (tuplify3 x) $ tuplify4 nums
+      in case solveTree tree of
+       Just x -> if x == 10 then tree:acc else acc
+       Nothing -> acc
+    
 
 tuplify3 :: [a] -> (a, a, a)
 tuplify3 [x1, x2, x3] = (x1, x2, x3)
